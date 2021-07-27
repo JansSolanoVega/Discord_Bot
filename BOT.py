@@ -19,10 +19,6 @@ async def hello(ctx,arg1,arg2):
   await ctx.send(f'arg1 : {arg1} arg2: {arg2}')
 
 @clientXD.command()
-async def hello(ctx,arg1,arg2):
-  await ctx.send('raaaa!!!!!!!!!!!')
-
-@clientXD.command()
 async def helloxd(ctx,*args):
   for arg in args:
     await ctx.send("arg"+str(args.index(arg)+1)+": "+str(arg))
