@@ -64,7 +64,7 @@ async def on_member_remove(member):
 
 @clientXD.command()
 async def ping(ctx):
-    await ctx.send(f"pong {round(clientXD.latency*1000)} ms")
+    await ctx.send(f"pang {round(clientXD.latency*1000)} ms")
 
 @clientXD.command(aliases=["8ball","test"])
 async def _8ball(ctx,*,question):
