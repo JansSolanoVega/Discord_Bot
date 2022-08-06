@@ -20,4 +20,4 @@ Cogs=[music]
 for i in range(len(Cogs)):
     Cogs[i].setup(clientXD)#llamar a la funcion del archivo
 music.ga()
-clientXD.run("ODY4ODgzNzc4NjQ1NDE4MDM2.YP2JEw.Fxly1qTJg08l1NLU8a6swMhIbTQ")
+clientXD.run("TOKEN")

@@ -33,4 +33,4 @@ for filename in os.listdir(".\Cogs"):
     if filename.endswith(".py") and filename!="main2.py":
         clientXD.load_extension(f"Cogs.{filename[:-3]}")
 
-clientXD.run("ODY4ODgzNzc4NjQ1NDE4MDM2.YP2JEw.Fxly1qTJg08l1NLU8a6swMhIbTQ")
+clientXD.run("TOKEN")

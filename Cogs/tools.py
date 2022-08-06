@@ -69,9 +69,46 @@ class herramientas(commands.Cog):
     
     @commands.command()
     async def ping(self,ctx):
-        await ctx.send(f"pong {round(self.clientXD.latency*1000)} ms")
+        await ctx.send(f"ping {round(self.clientXD.latency*1000)} ms")
 
+    @commands.command()
+    async def predict(self,ctx):
+        from SearchingFeatures import ConstruccionFeatures
+        construyendo=ConstruccionFeatures("spam OR inbox",200)
+        construyendo.construir()
 
+        #Algoritmo entrenado:
+        from sklearn.metrics import accuracy_score, balanced_accuracy_score
+        from sklearn.metrics import classification_report
+        from sklearn.metrics import confusion_matrix
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.pipeline import make_pipeline
+        from sklearn.feature_selection import SelectKBest
+        from sklearn.feature_selection import chi2,f_classif
+        from sklearn.svm import SVC
 
+        import pandas as pd
+        df=pd.read_csv("finalData.csv",encoding="latin-1",sep=",")
+        df["target"].replace("spam",1,inplace=True)
+        df["target"].replace("inbox",0,inplace=True)
+        x=df.iloc[:,0:-1]
+        y=df.iloc[:,-1]
+
+        from sklearn.model_selection import train_test_split
+        valid_fraction=0.2
+        seed=20
+        X_train, X_valid, y_train, y_valid = train_test_split(x, y, test_size=valid_fraction, random_state=seed)  
+
+        model = make_pipeline(SelectKBest(score_func=chi2,k=20),StandardScaler(), SVC()) 
+        model.fit(X_train, y_train)
+
+        construyendo.df.drop(columns=["target"],inplace=True)
+
+        y_predicted = model.predict(construyendo.df)
+        print(y_predicted[0])
+        texto="SPAM" if y_predicted==1 else "NO SPAM" 
+        await ctx.send(f"El último correo recibido, que fue enviado por: **{construyendo.sender}** y con título: **{construyendo.subject}** creo que es __**{texto}**__")
+
+      
 def setup(clientXD):
     clientXD.add_cog(herramientas(clientXD))
